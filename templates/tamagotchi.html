@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ tamagotchi.name }}</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 30px; }
+        button { padding: 10px 20px; margin: 5px; font-size: 16px; }
+        .stats { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Tamagotchi de {{ tamagotchi.name }}</h1>
+
+    {% if tamagotchi.status == 'Murió' %}
+        <h2>😭 {{ tamagotchi.name }} ha muerto</h2>
+    {% else %}
+        <div class="stats">
+            <p><strong>Edad:</strong> {{ tamagotchi.age }}</p>
+            <p><strong>Etapa:</strong> {{ tamagotchi.stage }}</p>
+            <p><strong>Hambre:</strong> {{ tamagotchi.hunger }}</p>
+            <p><strong>Felicidad:</strong> {{ tamagotchi.happiness }}</p>
+            <p><strong>Energía:</strong> {{ tamagotchi.energy }}</p>
+        </div>
+
+        <form method="POST" action="/tamagotchi/{{ tamagotchi.name }}">
+            <button name="action" value="feed">🍎 Alimentar</button>
+            <button name="action" value="play">🎮 Jugar</button>
+            <button name="action" value="sleep">😴 Dormir</button>
+            <button name="action" value="age">⏳ Envejecer</button>
+            <button name="action" value="status">🔍 Ver estado</button>
+        </form>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <br><a href="/">Volver al inicio</a>
+</body>
+</html>
